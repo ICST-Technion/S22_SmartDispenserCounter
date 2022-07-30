@@ -9,7 +9,7 @@ Smart Dispenser-Counter is a machinery system that outputs a batch of screws per
 * The dispenser outputs them from screws storages
 * The counter verifies that the dispenser satisfied the request accurately
 
-<img src="ESP32/images/system.png" width="30%" height="30%">
+<img src="ESP32/images/system.jpg" width="30%" height="30%">
 
 Index:
 * [WebApp](#webapp)
