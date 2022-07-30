@@ -53,7 +53,7 @@ The server uses [gin-gotonic](github.com/gin-gonic) pkg to run a RESTful API lis
 The supported endpoints can be found in registerAPI function.
 
 ### - DB [/pkg/db](pkg/db/db.go)
-With the access restrictions in mind, we designed our backend to be DB-agnostic: the RESTAPI server does not care 
+We designed our backend to be DB-agnostic: the RESTAPI server does not care 
 about the specifics of the DB, it only requires a client that implements the [db.go](pkg/db/db.go) interface.
 
 For the time being we chose to go with a low-effort [in-memory database](pkg/db/in-memory/in_memory_db.go) 
