@@ -3,6 +3,23 @@
 # SmartDispenserCounter
 [![Go Report Card](https://goreportcard.com/badge/github.com/open-cluster-management/hub-of-hubs-spec-transport-bridge)](https://goreportcard.com/report/github.com/vMaroon/SmartDispenserCounter)
 [![License](https://img.shields.io/github/license/vMaroon/SmartDispenserCounter)](/LICENSE)
+
+Visually-impaired employees in a MigdalOr factory face difficulties distinguishing between different kinds of screws / counting them.
+
+Smart Dispenser-Counter is a machinery system that outputs a batch of screws per request:
+* Users can request a batch of a number of screws of a certain type
+* The dispenser outputs them from screws storages
+* The counter verifies that the dispenser satisfied the request accurately
+---
+
+## WebApp
+Our frontend consists of a wix web-application that can be used on desktop/mobile comfortably.
+The UI of wix is not provided in this repository, but the backend code is available.
+
+[mobile.png](webapp/images/mobile.png)
+For the code, check the [webapp directory](webapp/README.md).
+---
+
 ## Backend Hierarchy
 
 ### - REST-API Server [/pkg/rest-api](pkg/rest-api/server.go)
