@@ -75,3 +75,21 @@ func (s *Server) deleteDispenserJob(ctx *gin.Context) {
 
 	ctx.IndentedJSON(http.StatusBadRequest, gin.H{"message": "id missing"})
 }
+
+func (s *Server) activateDispenser(ctx *gin.Context) {
+	if activate, found := ctx.GetQuery("activate"); found {
+		if activate == "1" {
+			s.dbClient.Activate()
+			ctx.IndentedJSON(http.StatusOK, gin.H{"message": "activated"})
+
+			return
+		}
+
+		s.dbClient.Deactivate()
+		ctx.IndentedJSON(http.StatusOK, gin.H{"message": "deactivated"})
+
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusBadRequest, gin.H{"err": "missing parameter 'activate'"})
+}

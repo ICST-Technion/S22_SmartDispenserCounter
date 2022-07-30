@@ -51,6 +51,7 @@ func (s *Server) registerAPI(router *gin.Engine) {
 	// GET METHODS
 	router.GET("/get_dispenser_requests", s.getDispenserJobRequests)
 	router.GET("/get_dispenser_job", s.getActiveDispenserJobRequest)
+	router.GET("/dispenser", s.activateDispenser)
 	// POST METHODS
 	router.POST("/dispenser_job", s.insertDispenserJob)
 	// DELETE METHODS

@@ -1,6 +1,7 @@
 package inmemory
 
 import (
+	"fmt"
 	"sync"
 	"time"
 
@@ -25,10 +26,13 @@ type dispenserJobDB struct {
 	lock          sync.Mutex
 }
 
-//nolint
 // GetDispenserJobs function to return jobs with sorting by timestamp.
 // This function is used to fetch history of up to historyLimit latest jobs.
+// nolint
 func (dispenserJobDB *dispenserJobDB) GetDispenserJobs(sortable *queries.Sortable) []datatypes.DispenserJob {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
 	if dispenserJobDB.currentJobID < 0 {
 		return []datatypes.DispenserJob{}
 	}
@@ -73,6 +77,15 @@ func (dispenserJobDB *dispenserJobDB) GetDispenserJobs(sortable *queries.Sortabl
 
 // GetNextJob function to return jobs with sorting by timestamp.
 func (dispenserJobDB *dispenserJobDB) GetNextJob() *datatypes.DispenserJob {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
+	activeJob := dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit]
+
+	if activeJob == nil || !activeJob.Status {
+		return nil
+	}
+
 	return dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit]
 }
 
@@ -82,27 +95,56 @@ func (dispenserJobDB *dispenserJobDB) GetNextJob() *datatypes.DispenserJob {
 //
 // Returns the job's ID.
 func (dispenserJobDB *dispenserJobDB) InsertDispenserJob(dispenserJob *datatypes.DispenserJob) uint64 {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
 	dispenserJobDB.currentJobID++
 
-	dispenserJob.ID = dispenserJobDB.currentJobID
+	dispenserJob.ID = fmt.Sprintf("%d", dispenserJobDB.currentJobID)
+	dispenserJob.Status = true
 	dispenserJob.CreationTimestamp = time.Now()
 
 	dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit] = dispenserJob
 
-	return dispenserJob.ID
+	return dispenserJobDB.currentJobID
 }
 
 // DeleteDispenserJob function to delete a job given its unique identifier.
 // If a relevant job is found and is deleted, returns true. Otherwise, returns false.
 func (dispenserJobDB *dispenserJobDB) DeleteDispenserJob(jobID uint64) bool {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
 	for i := 0; i < len(dispenserJobDB.dispenserJobs); i++ {
-		if dispenserJobDB.dispenserJobs[i] != nil && dispenserJobDB.dispenserJobs[i].ID == jobID {
+		if dispenserJobDB.dispenserJobs[i] != nil && dispenserJobDB.dispenserJobs[i].ID == fmt.Sprintf("%d", jobID) {
 			dispenserJobDB.dispenserJobs[i] = nil
 			return true
 		}
 	}
 
 	return false
+}
+
+// Activate sets that the active (latest) entry in DB can be sent out.
+func (dispenserJobDB *dispenserJobDB) Activate() {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
+	activeJob := dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit]
+	if activeJob != nil {
+		activeJob.Status = true
+	}
+}
+
+// Deactivate sets that the active (latest) entry in DB can be sent out.
+func (dispenserJobDB *dispenserJobDB) Deactivate() {
+	dispenserJobDB.lock.Lock()
+	defer dispenserJobDB.lock.Unlock()
+
+	activeJob := dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit]
+	if activeJob != nil {
+		activeJob.Status = false
+	}
 }
 
 func reverseJobsSlice(slice []datatypes.DispenserJob) []datatypes.DispenserJob {

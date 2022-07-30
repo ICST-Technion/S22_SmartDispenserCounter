@@ -7,7 +7,8 @@ import (
 
 // DispenserJob represents a dispenser-job entry.
 type DispenserJob struct {
-	ID                uint64    `json:"id" form:"id"`
+	ID                string    `json:"_id" form:"_id"`
 	CreationTimestamp time.Time `json:"creationTimestamp" form:"creationTimestamp"`
+	Status            bool      `json:"status" form:"status"`
 	queries.PostDispenserJob
 }

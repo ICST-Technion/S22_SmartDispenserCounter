@@ -27,4 +27,8 @@ type DispenserJobHandler interface {
 	// DeleteDispenserJob function to delete a job given its unique identifier.
 	// If a relevant job is found and is deleted, returns true. Otherwise, returns false.
 	DeleteDispenserJob(jobID uint64) bool
+	// Activate sets that the active (latest) entry in DB can be sent out.
+	Activate()
+	// Deactivate sets that the active (latest) entry in DB cannot be sent out.
+	Deactivate()
 }
