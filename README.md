@@ -9,7 +9,7 @@ Smart Dispenser-Counter is a machinery system that outputs a batch of screws per
 * The dispenser outputs them from screws storages
 * The counter verifies that the dispenser satisfied the request accurately
 
-<img src="webapp/images/system.png" width="30%" height="30%">
+<img src="ESP32/images/system.png" width="30%" height="30%">
 
 Index:
 * [WebApp](#webapp)
@@ -21,7 +21,7 @@ Index:
 Our frontend consists of a wix web-application that can be used on desktop/mobile comfortably.
 The UI of wix is not provided in this repository, but the backend code is available.
 
-<img src="webapp/images/mobile.png" width="50%" height="50%">
+<img src="webapp/images/mobile.png" width="30%" height="30%">
 
 For the code, check the [webapp directory](webapp/README.md).
 
@@ -32,13 +32,13 @@ The machinery-system built in this project consists of two dispenser units and a
 Dispenser unit: a dispenser is a vibratory-feeder based unit that has a container which holds the skrews and a servo
 motor that vibrates in order to attempt to feed out one skew at a time, most the time.
 
-<img src="ESP32/images/dispenser.png" width="40%" height="40%">
+<img src="ESP32/images/dispenser.png" width="20%" height="20%">
 
 Counter unit: a counter unit is a delta-weight based module that is used to ensure and verify the accurate satisfaction
 of dispensing requests. The counter itself may not be absolutely accurate, but it guarantees that when there is doubt, a
 request gets rejected and restarted.
 
-<img src="ESP32/images/counter.png" width="40%" height="40%">
+<img src="ESP32/images/counter.png" width="20%" height="20%">
 
 The system serves requests into 4 different containers, which must be present when a batch is being poured.
 
