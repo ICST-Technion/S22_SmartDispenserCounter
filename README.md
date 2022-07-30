@@ -16,7 +16,7 @@ Smart Dispenser-Counter is a machinery system that outputs a batch of screws per
 Our frontend consists of a wix web-application that can be used on desktop/mobile comfortably.
 The UI of wix is not provided in this repository, but the backend code is available.
 
-[mobile.png](webapp/images/mobile.png)
+<img src="webapp/images/mobile.png" width="50%" height="50%">
 For the code, check the [webapp directory](webapp/README.md).
 ---
 
