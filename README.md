@@ -17,6 +17,7 @@ Our frontend consists of a wix web-application that can be used on desktop/mobil
 The UI of wix is not provided in this repository, but the backend code is available.
 
 <img src="webapp/images/mobile.png" width="50%" height="50%">
+
 For the code, check the [webapp directory](webapp/README.md).
 
 ---
