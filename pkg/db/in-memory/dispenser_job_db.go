@@ -98,6 +98,10 @@ func (dispenserJobDB *dispenserJobDB) InsertDispenserJob(dispenserJob *datatypes
 	dispenserJobDB.lock.Lock()
 	defer dispenserJobDB.lock.Unlock()
 
+	if dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit] != nil {
+		dispenserJobDB.dispenserJobs[dispenserJobDB.currentJobID%db.DispenserJobsHistoryLimit].Status = false
+	}
+
 	dispenserJobDB.currentJobID++
 
 	dispenserJob.ID = fmt.Sprintf("%d", dispenserJobDB.currentJobID)
