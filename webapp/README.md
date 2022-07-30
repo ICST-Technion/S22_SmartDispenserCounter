@@ -7,8 +7,9 @@ our RESTful API server.
 ---
 
 ## Mobile View
-![mobile.png](images/mobile.png)
+<img src="images/mobile.png" width="50%" height="50%">
+
 ---
 
 ## Desktop View
-![desktop.png](images/desktop.png)
+<img src="images/desktop.png" width="50%" height="50%">

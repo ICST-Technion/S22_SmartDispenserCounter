@@ -18,6 +18,7 @@ The UI of wix is not provided in this repository, but the backend code is availa
 
 <img src="webapp/images/mobile.png" width="50%" height="50%">
 For the code, check the [webapp directory](webapp/README.md).
+
 ---
 
 ## Backend Hierarchy
