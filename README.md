@@ -65,9 +65,6 @@ The [datatypes.go](datatypes/datatypes.go) file contains the structures used in 
 ### - Queries [/queries](queries)
 The queries directory contains datatype-related query formats, e.g. URL query parameters for fetching dispenser jobs.
 
-## Frontend
-The [frontend](frontend) folder contains the code from Wix.
-
 ## Build
 
 * [Makefile](Makefile)
